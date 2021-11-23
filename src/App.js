@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
+import './lib/bootstrap/css/bootstrap.css';
+import TeacherState from './context/TeacherContext/TeacherState';
+import Home from './pages/Home';
+import TeacherList from './pages/TeacherList';
+import ViewTeacher from './pages/ViewTeacher';
+import EditTeacher from './pages/EditTeacher';
+import CreateTeacher from './pages/CreateTeacher';
+import NavBar from './components/NavBar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <TeacherState>
+            <Router>
+                <div className='App'>
+                    <NavBar />
+                    <div className='container'>
+                        <Switch>
+                            <Route exact path='/' component={Home} />
+                            <Route
+                                exact
+                                path='/Teachers'
+                                component={TeacherList}
+                            />
+                            <Route
+                                exact
+                                path='/Teacher/Create'
+                                component={CreateTeacher}
+                            />
+                            <Route
+                                path='/Teacher/Details/:id'
+                                component={ViewTeacher}
+                            />
+                            <Route
+                                path='/Teacher/Edit/:id'
+                                component={EditTeacher}
+                            />
+                        </Switch>
+                    </div>
+                </div>
+            </Router>
+        </TeacherState>
+    );
+};
 
 export default App;
